@@ -1,6 +1,6 @@
 # Gmail Support Ticket Logger Automation
 
-## Project Objective
+## Project Objective 
 
 This project turns messy Gmail customer support emails into clean, structured Google Sheets tickets.
 
