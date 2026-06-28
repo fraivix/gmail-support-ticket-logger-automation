@@ -1,9 +1,5 @@
 # Customer Support Ticket Schema and AI Analysis Rules
 
-============================================================
-Customer Support Ticket Schema and AI Analysis Rules
-====================================================
-
 Use exactly these 13 visible Google Sheets columns:
 
 1. Received Date
@@ -813,6 +809,3 @@ Do not skip a possible customer support request only because the wording is unus
 
 Do not process obvious marketing, notification, or spam emails.
 
-============================================================
-End of ticket-schema.md content
-===============================
