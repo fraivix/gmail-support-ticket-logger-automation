@@ -2,63 +2,45 @@
 
 ## Project Objective
 
-This project is designed to turn messy Gmail customer support emails into clean, structured Google Sheets tickets.
+This project turns messy Gmail customer support emails into clean, structured Google Sheets tickets.
 
-The planned automation will read recent customer emails, identify real support requests, skip irrelevant messages, extract ticket details, and write structured rows into a Google Sheet tab named `Tickets`.
+The automation helps identify real customer support requests, skip irrelevant emails, extract important ticket details, and store the result in a Google Sheet tab named `Tickets`.
 
 ## Problem Statement
 
-Customer support inboxes often contain a mix of real customer issues, newsletters, promotions, receipts, alerts, and personal messages. Manually reviewing each email and copying details into a spreadsheet is slow, inconsistent, and easy to duplicate.
+Customer support inboxes often contain a mix of real customer issues, newsletters, promotions, receipts, alerts, and other unrelated messages.
 
-This project aims to create a simple workflow that can:
+Manually reviewing each email, deciding the issue type, setting priority, writing summaries, and copying everything into a spreadsheet can be repetitive and easy to miss.
 
-- Read full customer email content.
-- Detect whether an email is a real support request.
-- Skip newsletters, promotions, ads, and other irrelevant messages.
-- Extract consistent support ticket fields.
-- Write clean ticket rows into Google Sheets.
-- Avoid duplicates without adding visible Gmail Message ID or Ticket Key columns.
+This project helps reduce manual copy-paste work and makes customer issues easier to track, prioritize, and follow up.
 
-## Planned Tools
+## Tools Used
 
-- Codex
-- Composio MCP
-- Gmail
-- Google Sheets
-- Node.js later
+* Codex
+* Composio MCP
+* Gmail
+* Google Sheets
+* Node.js
 
-## High-Level Architecture
+## How It Works
 
-The planned workflow is:
+```text
+Gmail Inbox
+→ Composio MCP
+→ Codex Workflow
+→ Support Request Detection
+→ Ticket Parsing
+→ Google Sheets Row Formatting
+→ Tickets Sheet
+```
 
-1. Gmail provides recent email messages.
-2. Composio MCP allows the automation to access Gmail and Google Sheets.
-3. AI reads the full email body and classifies whether the email is a support request.
-4. `ticket-schema.md` defines the extraction, classification, fallback, priority, sentiment, and reply rules.
-5. Valid support requests are converted into structured ticket rows.
-6. Rows are written to the `Tickets` tab in Google Sheets.
-7. Formatting is applied after tickets are written to Google Sheets.
-8. Duplicate tickets are avoided using visible fields only.
+Codex runs the workflow, while Composio MCP acts as the bridge that connects Codex with Gmail and Google Sheets.
 
-## Planned Workflow
-
-The implementation will eventually:
-
-1. Fetch recent Gmail emails through Composio MCP.
-2. Include both read and unread emails.
-3. Read the full email body.
-4. Identify real customer support requests.
-5. Skip irrelevant emails such as newsletters or promotions.
-6. Parse relevant emails into structured ticket data.
-7. Convert each ticket into the exact Google Sheets column order.
-8. Write the row into a Google Sheet tab named `Tickets`.
-9. Avoid duplicates without adding visible Gmail Message ID or Ticket Key columns.
-10. Apply visual formatting to keep the sheet readable.
-11. Print a workflow summary after each run.
+The workflow reads recent Gmail messages, checks whether each email is a real support request, skips irrelevant emails, parses valid support emails, and writes structured ticket rows into Google Sheets.
 
 ## Google Sheet Columns
 
-Use exactly these 13 visible Google Sheets columns:
+The `Tickets` sheet uses exactly these 13 visible columns:
 
 1. Received Date
 2. Customer Name
@@ -74,9 +56,34 @@ Use exactly these 13 visible Google Sheets columns:
 12. Suggested Reply
 13. Status
 
-Do not add visible Gmail Message ID or Ticket Key columns.
+No visible Gmail Message ID, Ticket Key, Raw Email Body, or extra metadata columns are added.
 
-The sheet must keep exactly these 13 visible columns. Formatting must not add hidden or visible metadata columns.
+## Ticket Rules
+
+The ticket extraction rules are documented in `ticket-schema.md`.
+
+This file defines:
+
+* Which emails should be processed
+* Which emails should be skipped
+* How each column should be filled
+* How priority and sentiment should be decided
+* How missing or unclear information should be handled
+* How suggested replies should be generated
+
+## Sheet Formatting
+
+The Google Sheets formatting rules are documented in `sheet-formatting.md`.
+
+This file defines visual and validation rules such as:
+
+* Header formatting
+* Text wrapping
+* Conditional formatting
+* Dropdown values
+* Missing reference highlighting
+
+Formatting is used only to make the sheet easier to review. It does not change the ticket data or add extra columns.
 
 ## Project Folder Structure
 
@@ -84,25 +91,30 @@ The sheet must keep exactly these 13 visible columns. Formatting must not add hi
 Gmail Support Ticket Logger Automation/
 ├── README.md
 ├── ticket-schema.md
+├── sheet-formatting.md
 ├── .gitignore
+├── package.json
 ├── sample-emails/
-│   ├── 01-workshop-recording.txt
-│   ├── 02-wrong-item.txt
-│   ├── 03-login-issue.txt
-│   ├── 04-billing-issue.txt
-│   └── 05-newsletter-skip.txt
-└── skills/
-    └── process-support-requests.md
+├── skills/
+│   └── process-support-requests.md
+└── src/
+    ├── index.js
+    ├── gmail.js
+    ├── parser.js
+    └── sheets.js
 ```
-
-## Source of Truth
-
-`ticket-schema.md` is the source of truth for ticket extraction and classification rules. It defines which emails should be processed, which emails should be skipped, how each Google Sheets column should be filled, and how the AI should handle missing or unclear information.
-
-`sheet-formatting.md` is the source of truth for Google Sheets visual formatting and validation rules. It defines how the `Tickets` sheet should be formatted after tickets are written, without changing ticket content or the 13-column schema.
 
 ## Implementation Status
 
-The actual code will be added later. This repository currently contains only the initial GitHub project documentation, schema rules, sample emails, and AI skill definition.
+The project includes:
 
-This repository only contains the GitHub project files. Hiring-task deliverables such as the Loom script, work log, educational script, and submission notes are kept separately outside this repository.
+* Project documentation
+* Ticket schema and AI rules
+* Sample emails
+* Node.js workflow structure
+* Gmail integration through Composio MCP
+* Google Sheets integration through Composio MCP
+* Support request classification
+* Ticket parsing
+* Google Sheets row writing
+* Sheet formatting and dropdown rules
