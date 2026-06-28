@@ -56,8 +56,6 @@ The `Tickets` sheet uses exactly these 13 visible columns:
 12. Suggested Reply
 13. Status
 
-No visible Gmail Message ID, Ticket Key, Raw Email Body, or extra metadata columns are added.
-
 ## Ticket Rules
 
 The ticket extraction rules are documented in `ticket-schema.md`.
