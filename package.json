@@ -1,0 +1,10 @@
+{
+  "name": "gmail-support-ticket-logger-automation",
+  "version": "0.1.0",
+  "description": "Local sample email parser for planned Gmail support ticket logging automation.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "private": true
+}
